@@ -1,65 +1,48 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\SkillsTraining;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SkillsTrainingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $skills = SkillsTraining::all();
+        return Inertia::render('Skills/Index', ['skills' => $skills]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return Inertia::render('Skills/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        SkillsTraining::create($request->all());
+        return redirect()->route('skills.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SkillsTraining $skillsTraining)
+    public function show(SkillsTraining $skill)
     {
-        //
+        return Inertia::render('Skills/Show', ['skill' => $skill]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SkillsTraining $skillsTraining)
+    public function edit(SkillsTraining $skill)
     {
-        //
+        return Inertia::render('Skills/Edit', ['skill' => $skill]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SkillsTraining $skillsTraining)
+    public function update(Request $request, SkillsTraining $skill)
     {
-        //
+        $skill->update($request->all());
+        return redirect()->route('skills.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SkillsTraining $skillsTraining)
+    public function destroy(SkillsTraining $skill)
     {
-        //
+        $skill->delete();
+        return redirect()->route('skills.index');
     }
 }
