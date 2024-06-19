@@ -9,14 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+
+    public function up()
     {
-        Schema::create('skills_trainings', function (Blueprint $table) {
+        Schema::create('skills_training', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('enrolment_id')->constrained('enrollments');
+            $table->string('skill_set');
+            $table->foreignId('event_id')->constrained('events');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return Inertia::render('App', [
+        return Inertia::render('Auth/Login', [
             'users' => User::all(),
         ]);
     }
