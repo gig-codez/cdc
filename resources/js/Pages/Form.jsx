@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { router } from '@inertiajs/react'
 
-export default function Edit() {
+export default function Form({ data }) {
     const [values, setValues] = useState({
         first_name: "",
         last_name: "",
@@ -24,6 +24,7 @@ export default function Edit() {
 
     return (
         <form onSubmit={handleSubmit}>
+            {data}
             <label htmlFor="first_name">First name:</label>
             <input id="first_name" value={values.first_name} onChange={handleChange} />
             <label htmlFor="last_name">Last name:</label>
