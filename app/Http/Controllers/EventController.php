@@ -1,27 +1,48 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
 use App\Models\Event;
+use App\Services\EventService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EventController extends Controller
 {
+    public function __construct(
+        protected EventService $eventService = new EventService(),
+    ) {
+
+    }
     public function index()
     {
-        $events = Event::all();
-        return Inertia::render('Events/Index', ['events' => $events]);
+        $data = $this->eventService->index();
+        return Inertia::render('Dashboard/Events/ViewEvents', ['events' => $data]);
     }
 
     public function create()
     {
-        return Inertia::render('Events/Create');
+        return Inertia::render('Dashboard/Events/AddEvent');
     }
 
     public function store(Request $request)
     {
-        Event::create($request->all());
-        return redirect()->route('events.index');
+        try {
+            // validate inputs
+            $validated = $request->validate([
+                'event_type' => 'required',
+                'learning_outcomes' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ]);
+            // handle event creation
+            $this->eventService->store($validated);
+            return redirect()->route('events.index');
+
+        } catch (\Exception $th) {
+
+            return redirect()->back()->withErrors(['message' => $th->getMessage()]);
+        }
     }
 
     public function show(Event $event)
@@ -31,18 +52,38 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
-        return Inertia::render('Events/Edit', ['event' => $event]);
+        $data = EventResource::make($event);
+        return Inertia::render('Dashboard/Events/EditEvent', ['event' => $data]);
     }
 
     public function update(Request $request, Event $event)
     {
-        $event->update($request->all());
-        return redirect()->route('events.index');
+        try {
+            // validate inputs
+            $validated = $request->validate([
+                'event_type' => 'required',
+                'learning_outcomes' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ]);
+            // handle event update
+            $this->eventService->update($validated, $event);
+            return redirect()->route('events.index');
+        } catch (\Exception $ex) {
+            return redirect()->back()->withErrors(['message' => $ex->getMessage()]);
+        }
+
     }
 
     public function destroy(Event $event)
     {
-        $event->delete();
-        return redirect()->route('events.index');
+        try {
+            $event->delete();
+            // session()->flash('message', 'Event deleted successfully');
+            return redirect()->route('events.index');
+
+        } catch (\Exception $ex) {
+            return redirect()->back()->withErrors(['message' => $ex->getMessage()]);
+        }
     }
 }

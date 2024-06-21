@@ -6,7 +6,6 @@ use App\Models\Enrollment;
 use App\Services\EnrollmentService;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class EnrolmentController extends Controller
@@ -85,17 +84,5 @@ class EnrolmentController extends Controller
     {
         $enrolment->delete();
         return redirect()->route('enrollments.index');
-    }
-
-    public function logout(Request $request)
-    {
-
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
     }
 }

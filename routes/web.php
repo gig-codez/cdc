@@ -24,7 +24,20 @@ Route::group(['middleware' => 'auth', "prefix" => "cdc"], function () {
         Route::put('/{enrolment}', [EnrolmentController::class, 'update'])->name('enrollments.update');
         Route::delete('delete/{enrolment}', [EnrolmentController::class, 'destroy'])->name('enrollments.destroy');
     });
-    Route::resource('events', EventController::class);
+    // events routes
+    Route::group(
+        [
+            "prefix" => "events",
+        ], function () {
+            Route::get('/all', [EventController::class, 'index'])->name('events.index');
+            Route::get('/create', [EventController::class, 'create'])->name('events.create');
+            Route::post('/add-event', [EventController::class, 'store'])->name('events.store');
+            Route::get('/{event}', [EventController::class, 'show'])->name('events.show');
+            Route::get('/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+            Route::put('update/{event}', [EventController::class, 'update'])->name('events.update');
+            Route::delete('delete/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+        }
+    );
     Route::resource('progress', ProgressTrackingController::class);
     Route::resource('materials', EducationalMaterialController::class);
     Route::resource('skills', SkillsTrainingController::class);
