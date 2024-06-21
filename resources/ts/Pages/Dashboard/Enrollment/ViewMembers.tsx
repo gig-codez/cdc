@@ -122,7 +122,17 @@ const ViewMembers = ({ data }: { data: any }) => {
                                     </tr>
                                 ))}
                             </tbody>)}
-
+                            {/* table footer */}
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Age Group</th>
+                                    <th>HIV Status</th>
+                                    <th>Village</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     {/* /.card-body */}
