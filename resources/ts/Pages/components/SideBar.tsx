@@ -67,6 +67,15 @@ const SideBar = () => {
             distribution.classList.toggle('menu-is-opening');
         }
     }
+    function handleSkills(event: React.MouseEvent<HTMLAnchorElement>): void {
+        event.preventDefault();
+        const skills = document.querySelector('.skill');
+        if (skills) {
+            skills.classList.toggle('menu-open');
+            skills.classList.toggle('menu-is-opening');
+        }
+    }
+
     return (
         <div className="sidebar">
             {/* Sidebar user panel (optional) */}
@@ -157,7 +166,7 @@ const SideBar = () => {
                     {/* progress section */}
                     <li className="nav-item progress_tracking">
                         <a href="#" onClick={handleProgressOption} className="nav-link">
-                            <i className="fa-sharp fa-people-arrows"></i>
+                            <i className="fa-sharp fa-people-arrows" />&nbsp;
                             <p>
                                 Progress Tracking
                                 <i className="fas fa-angle-left right" />
@@ -165,13 +174,13 @@ const SideBar = () => {
                         </a>
                         <ul className="nav nav-treeview">
                             <li className="nav-item">
-                                <Link href="/cdc/progressTracking/create-record" className="nav-link">
+                                <Link href="/cdc/progress-tracking/create-record" className="nav-link">
                                     <i className="fa fa-plus nav-icon" />
                                     <p>Add new track record</p>
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link href="/cdc/progressTracking/view-records" className="nav-link">
+                                <Link href="/cdc/progress-tracking/view-records" className="nav-link">
                                     <i className="far fa-eye nav-icon" />
                                     <p>View Records</p>
                                 </Link>
@@ -198,6 +207,30 @@ const SideBar = () => {
                                 <Link href="/cdc/distribution/viewAll" className="nav-link">
                                     <i className="far fa-eye nav-icon" />
                                     <p>View Distributions</p>
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
+                    {/* skills */}
+                    <li className="nav-item skill">
+                        <a href="#" onClick={handleSkills} className="nav-link">
+                            <i className="nav-icon fas fa-school" />
+                            <p>
+                                Skills Training
+                                <i className="fas fa-angle-left right" />
+                            </p>
+                        </a>
+                        <ul className="nav nav-treeview">
+                            <li className="nav-item">
+                                <Link href="/cdc/skills-training/create-skill" className="nav-link">
+                                    <i className="fa fa-plus nav-icon" />
+                                    <p>Add new skill</p>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href="/cdc/skills-training/view-skills" className="nav-link">
+                                    <i className="far fa-eye nav-icon" />
+                                    <p>View Skills</p>
                                 </Link>
                             </li>
                         </ul>

@@ -38,7 +38,46 @@ Route::group(['middleware' => 'auth', "prefix" => "cdc"], function () {
             Route::delete('delete/{event}', [EventController::class, 'destroy'])->name('events.destroy');
         }
     );
-    Route::resource('progress', ProgressTrackingController::class);
-    Route::resource('materials', EducationalMaterialController::class);
-    Route::resource('skills', SkillsTrainingController::class);
+    // progress tracking routes
+    Route::group(
+        [
+            "prefix" => "progress-tracking",
+        ], function () {
+            Route::get('/view-records', [ProgressTrackingController::class, 'index'])->name('progress-tracking.index');
+            Route::get('/create-record', [ProgressTrackingController::class, 'create'])->name('progress-tracking.create');
+            Route::post('/add-progress', [ProgressTrackingController::class, 'store'])->name('progress-tracking.store');
+            Route::get('/{progress}/show', [ProgressTrackingController::class, 'show'])->name('progress-tracking.show');
+            Route::get('/{progress}/edit', [ProgressTrackingController::class, 'edit'])->name('progress-tracking.edit');
+            Route::put('/update/{progress}', [ProgressTrackingController::class, 'update'])->name('progress-tracking.update');
+            Route::delete('/delete/{progress}', [ProgressTrackingController::class, 'destroy'])->name('progress-tracking.destroy');
+        }
+    );
+// educational material routes
+    Route::group(
+        [
+            "prefix" => "educational-materials",
+        ], function () {
+            Route::get('/view-all', [EducationalMaterialController::class, 'index'])->name('educational-materials.index');
+            Route::get('/create', [EducationalMaterialController::class, 'create'])->name('educational-materials.create');
+            Route::post('/add-material', [EducationalMaterialController::class, 'store'])->name('educational-materials.store');
+            Route::get('/{educationalMaterial}', [EducationalMaterialController::class, 'show'])->name('educational-materials.show');
+            Route::get('/{educationalMaterial}/edit', [EducationalMaterialController::class, 'edit'])->name('educational-materials.edit');
+            Route::put('/update/{educationalMaterial}', [EducationalMaterialController::class, 'update'])->name('educational-materials.update');
+            Route::delete('/delete/{educationalMaterial}', [EducationalMaterialController::class, 'destroy'])->name('educational-materials.destroy');
+        }
+    );
+    // skills training routes
+    Route::group(
+        [
+            "prefix" => "skills-training",
+        ], function () {
+            Route::get('/view-skills', [SkillsTrainingController::class, 'index'])->name('skills-training.index');
+            Route::get('/create-skill', [SkillsTrainingController::class, 'create'])->name('skills-training.create');
+            Route::post('/add-skill', [SkillsTrainingController::class, 'store'])->name('skills-training.store');
+            Route::get('/{skillsTraining}', [SkillsTrainingController::class, 'show'])->name('skills-training.show');
+            Route::get('/{skillsTraining}/edit', [SkillsTrainingController::class, 'edit'])->name('skills-training.edit');
+            Route::put('/update/{skillsTraining}', [SkillsTrainingController::class, 'update'])->name('skills-training.update');
+            Route::delete('/delete/{skillsTraining}', [SkillsTrainingController::class, 'destroy'])->name('skills-training.destroy');
+        }
+    );
 });
