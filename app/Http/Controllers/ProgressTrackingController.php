@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProgressTracking;
+use App\Services\EnrollmentService;
+use App\Services\EventService;
 use App\Services\ProgressTrackingService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -11,6 +13,8 @@ class ProgressTrackingController extends Controller
 {
     public function __construct(
         protected ProgressTrackingService $progressService = new ProgressTrackingService(),
+        protected EnrollmentService $enrollmentService = new EnrollmentService(),
+        protected EventService $eventService = new EventService()
     ) {
         //
     }
@@ -22,7 +26,10 @@ class ProgressTrackingController extends Controller
 
     public function create()
     {
-        return Inertia::render('Dashboard/Tracking/AddTrackRecord');
+        return Inertia::render('Dashboard/Tracking/AddTrackRecord', [
+            'enrollments' => $this->enrollmentService->getAllEnrollments(),
+            'events' => $this->eventService->index(),
+        ]);
     }
 
     public function store(Request $request)
@@ -30,7 +37,7 @@ class ProgressTrackingController extends Controller
         try {
             // validate inputs
             $valid = $request->validate([
-                'enrolment_id' => ['required', 'numeric', Rule::exists('enrollments', 'id')],
+                'enrollment_id' => ['required', 'numeric', Rule::exists('enrollments', 'id')],
                 'event_id' => ['required', 'numeric', Rule::exists('events', 'id')],
                 'lessons_attended' => 'required|numeric',
                 'skills_attained' => 'required|string',
@@ -39,7 +46,7 @@ class ProgressTrackingController extends Controller
             ]);
             // store data
             $this->progressService->store($valid);
-            return redirect()->route('progress.index');
+            return redirect()->route('progress-tracking.index');
         } catch (\Exception $th) {
             return back()->withErrors(["message" => $th->getMessage()]);
         }
@@ -52,8 +59,12 @@ class ProgressTrackingController extends Controller
 
     public function edit(ProgressTracking $progress)
     {
-        $record = $this->progressService->show($progress);
-        return Inertia::render('Dashboard/Progress/EditTrackRecord', ['progress' => $progress]);
+        // $record = $this->progressService->show($progress);
+        return Inertia::render('Dashboard/Tracking/EditTrackRecord', [
+            'progress' => $progress,
+            'enrollments' => $this->enrollmentService->getAllEnrollments(),
+            'events' => $this->eventService->index(),
+        ]);
     }
 
     public function update(Request $request, ProgressTracking $progress)
@@ -61,7 +72,7 @@ class ProgressTrackingController extends Controller
         try {
             // validate inputs
             $valid = $request->validate([
-                'enrolment_id' => ['required', 'numeric', Rule::exists('enrollments', 'id')],
+                'enrollment_id' => ['required', 'numeric', Rule::exists('enrollments', 'id')],
                 'event_id' => ['required', 'numeric', Rule::exists('events', 'id')],
                 'lessons_attended' => 'required|numeric',
                 'skills_attained' => 'required|string',
@@ -70,7 +81,7 @@ class ProgressTrackingController extends Controller
             ]);
             // store data
             $this->progressService->update($valid, $progress);
-            return redirect()->route('progress.index');
+            return redirect()->route('progress-tracking.index');
         } catch (\Exception $th) {
             return back()->withErrors(["message" => $th->getMessage()]);
         }
@@ -79,6 +90,6 @@ class ProgressTrackingController extends Controller
     public function destroy(ProgressTracking $progress)
     {
         $progress->delete();
-        return redirect()->route('progress.index');
+        return redirect()->route('progress-tracking.index');
     }
 }

@@ -40,7 +40,7 @@ const AddEvent = () => {
         })
     }
     return (
-        <Layout>
+        <Layout headerTitle='Add Event'>
             {/* form to add event */}
             <div className="container">
                 <div className="row">

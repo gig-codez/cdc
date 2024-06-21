@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/layout';
 
-const Editdistribution = () => {
+const EditDistribution = () => {
     return (
         <Layout>
             <div></div>
@@ -9,4 +9,4 @@ const Editdistribution = () => {
     );
 };
 
-export default Editdistribution;
+export default EditDistribution;

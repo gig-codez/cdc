@@ -42,7 +42,7 @@ const EnrollmentPage = () => {
         });
     }
     return (
-        <Layout>
+        <Layout headerTitle='Add Enrollment'>
             {/* code to implement a form for add a new member */}
             <div className="row">
                 <div className="col-lg-12">

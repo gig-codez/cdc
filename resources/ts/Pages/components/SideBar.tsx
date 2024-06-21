@@ -198,13 +198,13 @@ const SideBar = () => {
                         </a>
                         <ul className="nav nav-treeview">
                             <li className="nav-item">
-                                <Link href="/cdc/distribution/add-member" className="nav-link">
+                                <Link href="/cdc/educational-materials/create-distribution" className="nav-link">
                                     <i className="fa fa-plus nav-icon" />
                                     <p>Add new distribution</p>
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link href="/cdc/distribution/viewAll" className="nav-link">
+                                <Link href="/cdc/educational-materials/view-distributions" className="nav-link">
                                     <i className="far fa-eye nav-icon" />
                                     <p>View Distributions</p>
                                 </Link>

@@ -45,13 +45,13 @@ const ViewEvents = ({ events }: { events: EventIF }) => {
         })
     }
     return (
-        <Layout>
+        <Layout headerTitle='View Events'>
             <CustomTable title='Events' columnHeaders={['Event Name', 'Start Date', 'End Date', 'Actions']}>
                 {
                     events && (
                         <tbody>
                             {
-                                events.data.map((event, index) => (
+                                events.data.map((event: any, index: number) => (
                                     <tr key={index}>
                                         <td>{event.event_type}</td>
                                         <td>{event.start_date}</td>

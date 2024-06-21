@@ -48,7 +48,7 @@ const ViewMembers = ({ data }: { data: any }) => {
     }
 
     return (
-        <Layout>
+        <Layout headerTitle='Enrollments'>
             <>
 
                 {/* /.card */}

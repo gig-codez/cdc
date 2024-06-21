@@ -41,7 +41,7 @@ const EditEvent = ({ event }: { event: EventIF }) => {
         })
     }
     return (
-        <Layout>
+        <Layout headerTitle='Edit Event'>
             {/* form to add event */}
             <div className="container">
                 <div className="row">

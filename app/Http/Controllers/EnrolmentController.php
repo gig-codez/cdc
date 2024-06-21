@@ -18,8 +18,7 @@ class EnrolmentController extends Controller
     }
     public function index()
     {
-        $enrollments = $this->enrollmentService->getAllEnrollments();
-        $data = EnrollmentResource::collection($enrollments);
+        $data = $this->enrollmentService->getAllEnrollments();
         // dd($data);
         return Inertia::render('Dashboard/Enrollment/ViewMembers', ['data' => $data]);
     }

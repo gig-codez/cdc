@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\EnrollmentResource;
 use App\Models\Enrollment;
 
 class EnrollmentService
@@ -17,8 +18,8 @@ class EnrollmentService
     {
         try {
             $data = $this->enrollment->all();
-            return $data;
-            // return EnrollmentResource::collection($data);
+            // return ($data);
+            return EnrollmentResource::collection($data);
         } catch (\Exception $th) {
             throw $th;
         }

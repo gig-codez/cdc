@@ -16,8 +16,8 @@ class ProgressTrackingResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'enrolment_id' => $this->enrolment_id,
-            'event_id' => $this->event_id,
+            'enrollment_id' => $this->enrollment->child_name,
+            'event_id' => $this->event->event_type,
             'lessons_attended' => $this->lessons_attended,
             'skills_attained' => $this->skills_attained,
             'can_finish_without_hiv' => $this->can_finish_without_hiv,

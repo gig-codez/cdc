@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', [AuthController::class, 'index'])->name('intro');
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('home');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('login');
 Route::group(['middleware' => 'auth', "prefix" => "cdc"], function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     // Route::resource('user', UserController::class);
@@ -57,8 +58,8 @@ Route::group(['middleware' => 'auth', "prefix" => "cdc"], function () {
         [
             "prefix" => "educational-materials",
         ], function () {
-            Route::get('/view-all', [EducationalMaterialController::class, 'index'])->name('educational-materials.index');
-            Route::get('/create', [EducationalMaterialController::class, 'create'])->name('educational-materials.create');
+            Route::get('/view-distributions', [EducationalMaterialController::class, 'index'])->name('educational-materials.index');
+            Route::get('/create-distribution', [EducationalMaterialController::class, 'create'])->name('educational-materials.create');
             Route::post('/add-material', [EducationalMaterialController::class, 'store'])->name('educational-materials.store');
             Route::get('/{educationalMaterial}', [EducationalMaterialController::class, 'show'])->name('educational-materials.show');
             Route::get('/{educationalMaterial}/edit', [EducationalMaterialController::class, 'edit'])->name('educational-materials.edit');

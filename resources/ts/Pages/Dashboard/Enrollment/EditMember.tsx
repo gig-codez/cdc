@@ -44,7 +44,7 @@ const EditMember = ({ member }: { member: EnrollmentIF }) => {
         });
     }
     return (
-        <Layout>
+        <Layout headerTitle='Edit Member'>
             <div className="row">
                 <div className="col-lg-12">
                     <div className="card card-primary">
