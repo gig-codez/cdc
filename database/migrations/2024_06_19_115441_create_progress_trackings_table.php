@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('progress_tracking', function (Blueprint $table) {
+        Schema::create('progress_tracking', function (Blueprint $table) {
             $table->id();
             $table->foreignId('enrollment_id')->constrained('enrollments');
             $table->foreignId('event_id')->constrained('events');
@@ -20,6 +20,8 @@ return new class extends Migration
             $table->boolean('can_finish_without_hiv');
             $table->boolean('can_stand_alone');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

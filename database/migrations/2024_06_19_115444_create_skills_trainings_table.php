@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('skill_set');
             $table->foreignId('event_id')->constrained('events');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
     /**

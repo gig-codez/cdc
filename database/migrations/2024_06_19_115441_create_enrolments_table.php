@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('enrollments', function (Blueprint $table) {
+        Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
             $table->string('child_name');
             $table->string('address');
-            $table->enum('age_group', ['10-14', '15-19']);
-            $table->boolean('hiv_status');
-            $table->date('date_of_birth');
+            $table->enum('age_group', ['10-14', '15-19', '19-24']);
+            $table->string('hiv_status');
+            $table->string('date_of_birth');
             $table->string('village');
             $table->string('schooling_status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

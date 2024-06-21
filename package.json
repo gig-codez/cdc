@@ -6,18 +6,29 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@types/jquery": "^3.5.30",
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0",
+        "primereact": "^10.6.6",
         "ts-loader": "^9.5.1",
         "typescript": "^5.4.5",
         "vite": "^5.0"
     },
     "dependencies": {
         "@inertiajs/inertia-react": "^0.8.1",
+        "@inertiajs/progress": "^0.2.7",
         "@inertiajs/react": "^1.2.0",
         "@vitejs/plugin-react": "^4.3.1",
+        "datatables": "^1.10.18",
+        "datatables.net": "^2.0.8",
+        "datatables.net-buttons": "^3.0.2",
+        "datatables.net-buttons-dt": "^3.0.2",
+        "datatables.net-dt": "^2.0.8",
+        "datatables.net-responsive": "^3.0.2",
+        "datatables.net-responsive-dt": "^3.0.2",
+        "jquery": "^3.7.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "sweetalert2": "^11.12.0"

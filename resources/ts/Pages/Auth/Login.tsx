@@ -2,20 +2,23 @@
 import React from 'react';
 
 import './Login.css'; // Import custom CSS for additional styling
-import { Link, useForm } from '@inertiajs/react';
+import { usePage, useForm } from '@inertiajs/inertia-react';
 import Swal from 'sweetalert2';
 
 const Login: React.FC = () => {
-    const { data, setData, post, progress, errors } = useForm({
-        email: "",
-        password: "",
+    const { data, setData, progress, post, processing, errors } = useForm({
+        email: '',
+        password: '',
+        remember: false,
     })
+
+
     // function to handle form
     const handleForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post("/login", {
             onSuccess: (result) => {
-                console.log("Success")
+                console.log(result)
             },
             onError: (error) => {
                 Swal.fire(
@@ -31,37 +34,28 @@ const Login: React.FC = () => {
             {/* <Head title="Your page title" /> */}
             <div className="login-container">
                 <div className="login-card">
-                    {
-                        errors && (
-                            <div className="alert alert-danger">
-                                <ul>
-                                    <li>{errors.email}</li>
-                                </ul>
-                            </div>
-                        )
-                    }
+
                     <h3 className="text-center mb-4">CDC | Login</h3>
                     <form method='POST' onSubmit={handleForm}>
                         <div className="form-group p-2">
-                            <label htmlFor="email">Email address</label>
-                            <input type="email" className="form-control" value={data.email} onChange={(e) => setData("email", e.target.value)} id="email" placeholder="Enter email" />
+                            <label>Username <b className='text-danger'>*</b></label>
+                            <input type="text" className="form-control" value={data.email} name='email' onChange={(e) => setData("email", e.target.value)} id="email" placeholder="Doe" />
+                            {errors.email && <div>{errors.email}</div>}
                         </div>
                         <div className="form-group p-2">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" value={data.password} id="password" onChange={(e) => setData("password", e.target.value)} placeholder="Password" />
+                            <label>Password <b className='text-danger'>*</b></label>
+                            <input type="password" className="form-control" value={data.password} name='password' id="password" onChange={(e) => setData("password", e.target.value)} placeholder="***********" />
+                            {errors.password && <div>{errors.password}</div>}
                         </div>
-                        <div className='row'>
-                            <div className="col-md-7">
-                                {/* <input type="checkbox" className="form-check-input mx-2" id="remember" />
-                                <label className="form-check-label" htmlFor="remember">Remember me</label> */}
-                            </div>
-                            <div className='col-md-5'>
-                                <Link href="#" className="text-center decoration-black text-pretty">Forgot password?</Link>
-                            </div>
-                        </div>
+
                         <div className='col-md-12 my-3'>
-                            <input type="submit" className="form-control btn btn-primary h-[200px]" value="Login" />
+                            <input type="submit" disabled={processing} className="form-control btn btn-primary" value="Login" />
                         </div>
+                        {progress && (
+                            <progress value={progress.percentage} max="100">
+                                {progress.percentage}%
+                            </progress>
+                        )}
                     </form>
                 </div>
             </div>
