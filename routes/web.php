@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth', "prefix" => "cdc"], function () {
         Route::post('/enroll', [EnrolmentController::class, 'store'])->name('enrollments.store');
         Route::get('/{enrolment}', [EnrolmentController::class, 'show'])->name('enrollments.show');
         Route::get('/{enrolment}/edit', [EnrolmentController::class, 'edit'])->name('enrollments.edit');
-        Route::put('update/{enrolment}', [EnrolmentController::class, 'update'])->name('enrollments.update');
+        Route::put('/{enrolment}', [EnrolmentController::class, 'update'])->name('enrollments.update');
         Route::delete('delete/{enrolment}', [EnrolmentController::class, 'destroy'])->name('enrollments.destroy');
     });
     Route::resource('events', EventController::class);
